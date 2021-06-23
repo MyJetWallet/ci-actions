@@ -5,7 +5,9 @@ inputs:
 runs:
   using: "composite"
   steps: 
-    - run: echo Hello ${{ inputs.name }}.
-      shell: bash
-    - run: echo "Nice to meet you!"
-      shell: pwsh
+    - name: Build
+      run: dotnet build --configuration Release /p:AssemblyVersion=0.0.${{ github.run_number }}
+    - name: Test
+      run: dotnet test --no-build --configuration Release
+    - name: ls
+      run: ls
