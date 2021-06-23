@@ -4,14 +4,23 @@ inputs:
     default: 'No name provided'
 runs:
   using: "composite"
-  shell: bash
   steps: 
+    - name: Get current time
+      uses: MyJetTools/get-current-time@v2
+      id: current-time
+      with:
+        format: YYYY-MM-DD HH:mm:ss
+        utcOffset: "+00:00"
+        
+    - name: print time
+      run: echo ${{ steps.current-time.outputs.formattedTime }}
+      shell: bash
     - name: Build
       run: dotnet build --configuration Release /p:AssemblyVersion=0.0.${{ github.run_number }}
-#      shell: bash
+      shell: bash
     - name: Test
       run: dotnet test --no-build --configuration Release
       shell: bash
     - name: ls
       run: ls
-#      shell: bash
+      shell: bash
