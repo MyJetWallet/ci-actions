@@ -4,13 +4,14 @@ inputs:
     default: 'No name provided'
 runs:
   using: "composite"
+  runs-on: ubuntu-latest
   steps: 
     - name: Build
       run: dotnet build --configuration Release /p:AssemblyVersion=0.0.${{ github.run_number }}
-      shell: bash
+#      shell: bash
     - name: Test
       run: dotnet test --no-build --configuration Release
       shell: bash
     - name: ls
       run: ls
-      shell: bash
+#      shell: bash
